@@ -2,7 +2,7 @@
 .page {
   position: relative;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
   background:
     radial-gradient(1200px 700px at 12% 0%, rgba(60, 40, 140, 0.35), transparent 55%),
     radial-gradient(900px 600px at 95% 100%, rgba(40, 60, 160, 0.28), transparent 55%),
@@ -15,6 +15,10 @@
   filter: blur(120px);
   pointer-events: none;
   z-index: 0;
+  /* Выносим тяжёлое размытие на отдельный композиционный слой, чтобы оно
+     не перерисовывалось при каждом кадре скролла (иначе прокрутка тормозит). */
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .page__glow--purple {
