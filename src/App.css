@@ -69,10 +69,52 @@
   gap: 6px;
 }
 
+.brand__logo {
+  position: relative;
+  display: inline-block;
+}
+
 .brand__img {
   height: 40px;
   width: auto;
   display: block;
+}
+
+/* Бегущий блик-«перелив» по логотипу. Маской ограничиваем форму логотипа,
+   чтобы блик скользил только по нём, а не по прозрачному фону. */
+.brand__logo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.65) 50%,
+    transparent 62%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  -webkit-mask: url(./assets/logo.png) left center / contain no-repeat;
+  mask: url(./assets/logo.png) left center / contain no-repeat;
+  animation: logo-shine 5s ease-in-out infinite;
+}
+
+@keyframes logo-shine {
+  0% {
+    background-position: 220% 0;
+  }
+  35%,
+  100% {
+    background-position: -120% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand__logo::after {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 .brand__tagline {
