@@ -1,5 +1,6 @@
 import Hero from './components/Hero'
 import LoginCard from './components/LoginCard'
+import Footer from './components/Footer'
 import { ArrowLeftIcon } from './components/icons'
 import './App.css'
 
@@ -16,6 +17,7 @@ export default function App() {
         <Hero />
         <LoginCard />
       </main>
+      <Footer />
     </div>
   )
 }
