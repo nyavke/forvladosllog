@@ -1,0 +1,663 @@
+/* ---------- Page shell ---------- */
+.page {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(1200px 700px at 12% 0%, rgba(60, 40, 140, 0.35), transparent 55%),
+    radial-gradient(900px 600px at 95% 100%, rgba(40, 60, 160, 0.28), transparent 55%),
+    linear-gradient(160deg, #07060f 0%, #0a0918 60%, #060510 100%);
+}
+
+.page__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page__glow--purple {
+  width: 520px;
+  height: 520px;
+  top: -180px;
+  left: -120px;
+  background: rgba(123, 47, 245, 0.22);
+}
+
+.page__glow--blue {
+  width: 560px;
+  height: 560px;
+  bottom: -220px;
+  right: -140px;
+  background: rgba(59, 107, 245, 0.18);
+}
+
+.layout {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 64px;
+  align-items: center;
+}
+
+/* ---------- Hero ---------- */
+/* Высота по контенту: hero центрируется как блок рядом с карточкой (align-items:
+   center у .layout) → обе колонки симметричны по вертикали. */
+.hero {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 4vh, 38px) 0;
+}
+
+.hero__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: clamp(20px, 5vh, 56px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand__logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  background: var(--grad);
+  box-shadow: 0 8px 24px rgba(123, 47, 245, 0.45);
+}
+
+.brand__logo-icon {
+  font-size: 26px;
+  line-height: 1;
+  color: #fff;
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.brand__name {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.brand__tagline {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.page__back {
+  position: absolute;
+  top: clamp(20px, 4vh, 38px);
+  /* Прижимаем к правому краю центрированного контейнера (max-width 1280),
+     а не к краю вьюпорта — иначе на широких экранах ссылка улетает в угол. */
+  right: calc(max(0px, (100vw - 1280px) / 2) + 48px);
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--muted);
+  transition: color 180ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .page__back:hover {
+    color: var(--text);
+  }
+}
+
+.page__back-icon {
+  font-size: 18px;
+  line-height: 1;
+  color: var(--pink);
+}
+
+.hero__title {
+  font-size: clamp(32px, 3.25vw, 42px);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: clamp(12px, 2vh, 22px);
+}
+
+.hero__title-accent {
+  background: var(--grad-soft);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__desc {
+  max-width: 460px;
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.6;
+  color: var(--muted);
+  margin-bottom: clamp(18px, 3vh, 34px);
+}
+
+/* features */
+.features {
+  list-style: none;
+  display: flex;
+  gap: clamp(16px, 2vw, 30px);
+  flex-wrap: nowrap;
+  margin-bottom: 0;
+}
+
+.feature {
+  display: flex;
+  gap: 12px;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.feature__icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  background: rgba(123, 47, 245, 0.12);
+  border: 1px solid rgba(123, 47, 245, 0.3);
+  color: #b99bff;
+}
+
+.feature__icon i {
+  font-size: 20px;
+}
+
+/* Шрифтовые иконки UIcons: центрируем глиф внутри его бокса флексом, иначе он
+   садится по базовой линии шрифта и выглядит смещённым в круглой/квадратной плашке. */
+.fi {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.fi::before {
+  display: block;
+  line-height: 1;
+}
+
+.feature__body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.feature__title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.feature__text {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--muted-2);
+}
+
+/* illustration */
+.illustration {
+  margin-top: clamp(-40px, -3vh, -16px);
+  min-height: 0;
+}
+
+.illustration svg {
+  width: auto;
+  height: clamp(160px, 34vh, 360px);
+  max-width: 100%;
+  display: block;
+}
+
+/* ---------- Login card ---------- */
+.card {
+  position: relative;
+  align-self: center;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 22px;
+  padding: clamp(26px, 3.4vh, 40px) 40px clamp(24px, 3vh, 34px);
+  backdrop-filter: blur(18px);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.card__title {
+  font-size: 30px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.card__subtitle {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 320px;
+  margin: 0 auto 30px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.field__label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #d6d7e6;
+}
+
+.field__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--field-bg);
+  border: 1px solid var(--field-border);
+  border-radius: 12px;
+  transition: border-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out);
+}
+
+.field__control:focus-within {
+  border-color: rgba(139, 92, 255, 0.65);
+  box-shadow: 0 0 0 3px rgba(123, 47, 245, 0.18);
+}
+
+.field__icon {
+  font-size: 19px;
+  line-height: 1;
+  margin: 0 12px;
+  color: var(--muted-2);
+  flex-shrink: 0;
+  transition: color 180ms var(--ease-out), transform 180ms var(--ease-out);
+}
+
+.field__control:focus-within .field__icon {
+  color: #b99bff;
+  transform: scale(1.08);
+}
+
+.field__control input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 15px;
+  padding: 14px 14px 14px 0;
+}
+
+.field__control input::placeholder {
+  color: #5e6080;
+}
+
+.field__toggle {
+  background: none;
+  border: none;
+  color: var(--muted-2);
+  display: grid;
+  place-items: center;
+  padding: 0 14px;
+  height: 100%;
+  transition: color 180ms var(--ease-out), transform 140ms var(--ease-out);
+}
+
+.field__toggle:active {
+  transform: scale(0.9);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .field__toggle:hover {
+    color: var(--text);
+  }
+}
+
+.field__toggle i {
+  font-size: 19px;
+  line-height: 1;
+}
+
+/* row: remember / forgot */
+.form__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -2px;
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #d6d7e6;
+  user-select: none;
+  cursor: pointer;
+}
+
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox__box {
+  width: 19px;
+  height: 19px;
+  border-radius: 6px;
+  border: 1px solid var(--field-border);
+  background: var(--field-bg);
+  display: grid;
+  place-items: center;
+  transition: background 180ms var(--ease-out), border-color 180ms var(--ease-out);
+}
+
+.checkbox input:checked + .checkbox__box {
+  background: var(--grad);
+  border-color: transparent;
+}
+
+.checkbox__box::after {
+  content: '';
+  width: 5px;
+  height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) translate(-0.5px, -1px) scale(0.5);
+  opacity: 0;
+  transition: transform 180ms var(--ease-out), opacity 140ms var(--ease-out);
+}
+
+.checkbox input:checked + .checkbox__box::after {
+  transform: rotate(45deg) translate(-0.5px, -1px) scale(1);
+  opacity: 1;
+}
+
+.checkbox input:focus-visible + .checkbox__box {
+  box-shadow: 0 0 0 3px rgba(123, 47, 245, 0.25);
+}
+
+.link {
+  font-size: 13.5px;
+  color: var(--pink);
+  transition: opacity 180ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    opacity: 0.8;
+  }
+}
+
+.link--accent {
+  background: var(--grad-soft);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 600;
+}
+
+/* buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: transform 140ms var(--ease-out), box-shadow 180ms var(--ease-out),
+    background 180ms var(--ease-out), border-color 180ms var(--ease-out);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn:disabled:active {
+  transform: none;
+}
+
+/* Сообщение об ошибке входа — мягко появляется, не ломает раскладку */
+.form__error {
+  margin-top: -4px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #ff9db5;
+  background: rgba(226, 90, 108, 0.1);
+  border: 1px solid rgba(226, 90, 108, 0.28);
+  animation: enter-up 240ms var(--ease-out) both;
+}
+
+.btn--primary {
+  width: 100%;
+  padding: 15px;
+  margin-top: 6px;
+  color: #fff;
+  background: var(--grad);
+  box-shadow: 0 12px 30px rgba(99, 60, 245, 0.4);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover {
+    box-shadow: 0 14px 38px rgba(99, 60, 245, 0.55);
+  }
+}
+
+.btn__icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* divider */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 26px 0 22px;
+  color: var(--muted-2);
+  font-size: 13px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(120, 120, 170, 0.25), transparent);
+}
+
+/* socials */
+.socials {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.btn--social {
+  padding: 13px;
+  color: #e7e8f2;
+  background: var(--field-bg);
+  border: 1px solid var(--field-border);
+  font-size: 14px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn--social:hover {
+    background: rgba(30, 30, 56, 0.8);
+    border-color: rgba(139, 92, 255, 0.4);
+  }
+}
+
+.btn__brand {
+  font-size: 19px;
+  line-height: 1;
+}
+
+.card__footer {
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 26px;
+}
+
+/* ---------- Entrance animations ---------- */
+/* Показывается один раз при загрузке → можно добавить delight.
+   CSS-анимации идут вне main thread и не дёргаются под нагрузкой загрузки. */
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes enter-card {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card {
+  animation: enter-card 520ms var(--ease-out) both;
+}
+
+/* Каскад элементов hero — короткие задержки 60ms */
+.hero > * {
+  animation: enter-up 460ms var(--ease-out) both;
+}
+
+.hero__top {
+  animation-delay: 40ms;
+}
+.hero__title {
+  animation-delay: 100ms;
+}
+.hero__desc {
+  animation-delay: 160ms;
+}
+.features {
+  animation-delay: 220ms;
+}
+.illustration {
+  animation-delay: 280ms;
+}
+
+/* ---------- Reduced motion ---------- */
+/* Убираем движение, оставляем мягкое появление через opacity */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .hero > * {
+    animation: none;
+  }
+
+  .field__control:focus-within .field__icon,
+  .field__toggle:active,
+  .btn:active {
+    transform: none;
+  }
+
+  .checkbox__box::after {
+    transition: opacity 140ms ease;
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .page {
+    height: auto;
+    overflow: visible;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 40px;
+    padding: 28px 24px;
+  }
+
+  .hero {
+    height: auto;
+    padding: 0;
+  }
+
+  .page__back {
+    right: 24px;
+  }
+
+  .hero__title {
+    font-size: 40px;
+  }
+
+  .illustration {
+    max-width: 480px;
+    margin-inline: auto;
+  }
+
+  .card {
+    max-width: 460px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero__top {
+    margin-bottom: 36px;
+  }
+
+  .hero__title {
+    font-size: 32px;
+  }
+
+  .card {
+    padding: 28px 22px;
+  }
+
+  .socials {
+    grid-template-columns: 1fr;
+  }
+}
